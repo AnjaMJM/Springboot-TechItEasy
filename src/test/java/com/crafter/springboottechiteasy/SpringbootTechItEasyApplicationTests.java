@@ -6,8 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SpringbootTechItEasyApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+        // kan leeg blijven. checkt of applicatie kan runnen zonder te valen.
+    }
 
 }
