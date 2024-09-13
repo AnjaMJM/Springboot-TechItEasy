@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringbootTechItEasyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringbootTechItEasyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootTechItEasyApplication.class, args);
+    }
 
 }
