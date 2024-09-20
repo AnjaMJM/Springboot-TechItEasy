@@ -1,19 +1,20 @@
 package com.crafter.springboottechiteasy.services;
 
-import com.crafter.springboottechiteasy.Dtos.TelevisionDto;
+import com.crafter.springboottechiteasy.Dtos.TelevisionInputDto;
+import com.crafter.springboottechiteasy.Dtos.TelevisionOutputDto;
+import com.crafter.springboottechiteasy.Dtos.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.exceptions.IndexOutOfBoundsException;
 import com.crafter.springboottechiteasy.exceptions.RecordNotFoundException;
 import com.crafter.springboottechiteasy.exceptions.RequirementsNotMetException;
 import com.crafter.springboottechiteasy.models.Television;
 import com.crafter.springboottechiteasy.repositories.TelevisionRepository;
-import io.micrometer.observation.ObservationFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.crafter.springboottechiteasy.mappers.TelevisionMapper.televisionToDto;
+import static com.crafter.springboottechiteasy.mappers.TelevisionMapper.*;
 
 @Service
 public class TelevisionService {
@@ -24,36 +25,44 @@ public class TelevisionService {
         this.televisionRepository = televisionRepository;
     }
 
-    public List<TelevisionDto> getAllTelevisions() {
+    public List<TelevisionOutputDto> getAllTelevisions() {
         List<Television> tvs = televisionRepository.findAll();
-        List<TelevisionDto> dto = new ArrayList<>();
+        List<TelevisionOutputDto> dto = new ArrayList<>();
 
         for (Television tv: tvs) {
-            dto.add(televisionToDto(tv));
+            dto.add(TelevisionToOutput(tv));
         }
         return dto;
     }
 
 
-    public TelevisionDto getOneTelevision(Long id) {
+    public TelevisionOutputDto getOneTelevision(Long id) {
         Television television = televisionRepository.findById(id)
                 .orElseThrow(() -> new IndexOutOfBoundsException("Tv not found"));
-            return televisionToDto(television);
+            return TelevisionToOutput(television);
     }
 
-    public TelevisionDto createTelevision(TelevisionDto newTv) {
+    public TelevisionSalesDto getSalesInfoTelevision(Long id) {
+        Television tv = televisionRepository.findById(id)
+                .orElseThrow(() -> new IndexOutOfBoundsException("Tv not found"));
+        return TelevisionToSales(tv);
+    }
+
+    public TelevisionOutputDto createTelevision(TelevisionInputDto newTv) {
         if (newTv.getName().length() < 20) {
-            return televisionRepository.save(newTv);
+            Television t =televisionRepository.save(InputToTelevision(newTv));
+            return TelevisionToOutput(t);
         } else {
             throw new RequirementsNotMetException("The name is too long. There is a max of 20 characters");
         }
     }
 
-    public void updateTelevision(Long id, TelevisionDto tv) {
+    public TelevisionOutputDto updateTelevision(Long id, TelevisionInputDto updatedTv) {
         Optional<Television> television = televisionRepository.findById(id);
         if (television.isPresent()) {
-            tv.setId(id);
-            televisionRepository.save(tv);
+            updatedTv.setId(id);
+            Television t = televisionRepository.save(InputToTelevision(updatedTv));
+            return TelevisionToOutput(t);
         } else {
             throw new RecordNotFoundException();
         }

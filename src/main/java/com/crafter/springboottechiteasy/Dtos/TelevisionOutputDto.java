@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TelevisionDto {
+public class TelevisionOutputDto {
     private Long id;
     private String type;
     private String brand;
@@ -20,7 +20,7 @@ public class TelevisionDto {
     private Boolean voiceControl;
     private Boolean hdr;
     private Boolean bluetooth;
-    private Boolean ambiLight;
+    private Boolean ambilight;
     private Integer originalStock;
     private Integer sold;
 }

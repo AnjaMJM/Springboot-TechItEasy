@@ -1,13 +1,14 @@
 package com.crafter.springboottechiteasy.controllers;
 
-import com.crafter.springboottechiteasy.Dtos.TelevisionDto;
 import com.crafter.springboottechiteasy.Dtos.TelevisionInputDto;
-import com.crafter.springboottechiteasy.models.Television;
+import com.crafter.springboottechiteasy.Dtos.TelevisionOutputDto;
+import com.crafter.springboottechiteasy.Dtos.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.services.TelevisionService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,34 +22,40 @@ public class TelevisionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TelevisionDto>> getAllTVs() {
+    public ResponseEntity<List<TelevisionOutputDto>> getAllTVs() {
         return ResponseEntity.ok(televisionService.getAllTelevisions());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TelevisionDto> getOneTV(@PathVariable Long id) {
+    public ResponseEntity<TelevisionOutputDto> getOneTV(@PathVariable Long id) {
         return ResponseEntity.ok(televisionService.getOneTelevision(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<TelevisionDto> createNewTV(@RequestBody TelevisionDto tv) {
-        return ResponseEntity.created(null).body(televisionService.createTelevision(tv));
+    @GetMapping("/sales/{id}")
+    public ResponseEntity<TelevisionSalesDto> getSalesInfoOnOneTV(@PathVariable Long id) {
+        return ResponseEntity.ok(televisionService.getSalesInfoTelevision(id));
     }
 
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<TelevisionDto> updateTV(@PathVariable Long id, @RequestBody TelevisionDto tv) {
-        televisionService.updateTelevision(id, tv);
-        return ResponseEntity.noContent().build();
+    @PostMapping()
+    public ResponseEntity<TelevisionOutputDto> createNewTV(@RequestBody TelevisionInputDto tv) {
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(tv.getId())
+                .toUri();
+        return ResponseEntity.created(location).body(televisionService.createTelevision(tv));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<TelevisionOutputDto> updateTV(@PathVariable Long id, @RequestBody TelevisionInputDto tv) {
+        TelevisionOutputDto updatedTv = televisionService.updateTelevision(id, tv);
+        return ResponseEntity.ok(updatedTv);
+    }
 
-    @DeleteMapping("/delete/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public ResponseEntity<TelevisionDto> deleteTV(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTV(@PathVariable Long id) {
         televisionService.deleteTelevision(id);
         return ResponseEntity.noContent().build();
-
     }
 
 }
