@@ -1,57 +1,61 @@
 package com.crafter.springboottechiteasy.controllers;
 
-import com.crafter.springboottechiteasy.exceptions.RecordNotFoundException;
-import com.crafter.springboottechiteasy.exceptions.RequirementsNotMetException;
-import org.springframework.http.HttpStatus;
+import com.crafter.springboottechiteasy.Dtos.TelevisionInputDto;
+import com.crafter.springboottechiteasy.Dtos.TelevisionOutputDto;
+import com.crafter.springboottechiteasy.Dtos.TelevisionSalesDto;
+import com.crafter.springboottechiteasy.services.TelevisionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/televisions")
 public class TelevisionController {
 
+    private final TelevisionService televisionService;
+
+    public TelevisionController(TelevisionService televisionService) {
+        this.televisionService = televisionService;
+    }
+
     @GetMapping
-    public ResponseEntity<Object> getAllTVs() {
-        return ResponseEntity.ok("television");
+    public ResponseEntity<List<TelevisionOutputDto>> getAllTVs() {
+        return ResponseEntity.ok(televisionService.getAllTelevisions());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneTV(@PathVariable int id) {
-        if (id == 0) { // determine if id exists
-            throw new IndexOutOfBoundsException();
-        } else {
-            return ResponseEntity.ok(id);
-        }
+    public ResponseEntity<TelevisionOutputDto> getOneTV(@PathVariable Long id) {
+        return ResponseEntity.ok(televisionService.getOneTelevision(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Object> createNewTV() {
-        String television = "Panasonic";
-        if (television.length() > 20) {
-            throw new RequirementsNotMetException("The name is too long. There is a max of 20 characters");
-        } else {
-            return ResponseEntity.created(null).body("television");
-        }
+    @GetMapping("/sales/{id}")
+    public ResponseEntity<TelevisionSalesDto> getSalesInfoOnOneTV(@PathVariable Long id) {
+        return ResponseEntity.ok(televisionService.getSalesInfoTelevision(id));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Object> updateTV(@PathVariable int id, @RequestBody String televisionName) {
-        if (id == 0) {
-            throw new RecordNotFoundException();
-        } else {
-
-            return ResponseEntity.noContent().build();
-        }
+    @PostMapping()
+    public ResponseEntity<TelevisionOutputDto> createNewTV(@RequestBody TelevisionInputDto tv) {
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(tv.getId())
+                .toUri();
+        return ResponseEntity.created(location).body(televisionService.createTelevision(tv));
     }
 
-    @DeleteMapping("/delete/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public ResponseEntity<Object> deleteTV(@PathVariable int id) {
-        if (id == 0) {
-            throw new RecordNotFoundException();
-        } else {
-            return ResponseEntity.noContent().build();
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<TelevisionOutputDto> updateTV(@PathVariable Long id, @RequestBody TelevisionInputDto tv) {
+        TelevisionOutputDto updatedTv = televisionService.updateTelevision(id, tv);
+        return ResponseEntity.ok(updatedTv);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTV(@PathVariable Long id) {
+        televisionService.deleteTelevision(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
