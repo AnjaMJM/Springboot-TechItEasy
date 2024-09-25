@@ -1,8 +1,8 @@
 package com.crafter.springboottechiteasy.services;
 
-import com.crafter.springboottechiteasy.Dtos.TelevisionInputDto;
-import com.crafter.springboottechiteasy.Dtos.TelevisionOutputDto;
-import com.crafter.springboottechiteasy.Dtos.TelevisionSalesDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionInputDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.exceptions.IndexOutOfBoundsException;
 import com.crafter.springboottechiteasy.exceptions.RecordNotFoundException;
 import com.crafter.springboottechiteasy.exceptions.RequirementsNotMetException;
@@ -60,7 +60,6 @@ public class TelevisionService {
     public TelevisionOutputDto updateTelevision(Long id, TelevisionInputDto updatedTv) {
         Optional<Television> television = televisionRepository.findById(id);
         if (television.isPresent()) {
-            updatedTv.setId(id);
             Television t = televisionRepository.save(InputToTelevision(updatedTv));
             return TelevisionToOutput(t);
         } else {

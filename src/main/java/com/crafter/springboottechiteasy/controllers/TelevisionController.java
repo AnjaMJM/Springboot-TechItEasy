@@ -1,8 +1,8 @@
 package com.crafter.springboottechiteasy.controllers;
 
-import com.crafter.springboottechiteasy.Dtos.TelevisionInputDto;
-import com.crafter.springboottechiteasy.Dtos.TelevisionOutputDto;
-import com.crafter.springboottechiteasy.Dtos.TelevisionSalesDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionInputDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.services.TelevisionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +38,11 @@ public class TelevisionController {
 
     @PostMapping()
     public ResponseEntity<TelevisionOutputDto> createNewTV(@RequestBody TelevisionInputDto tv) {
+        TelevisionOutputDto updatedTV = new TelevisionOutputDto();
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(tv.getId())
+                .buildAndExpand(updatedTV.getId())
                 .toUri();
         return ResponseEntity.created(location).body(televisionService.createTelevision(tv));
     }

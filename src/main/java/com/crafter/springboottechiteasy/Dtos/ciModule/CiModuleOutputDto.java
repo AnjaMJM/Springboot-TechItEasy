@@ -1,0 +1,17 @@
+package com.crafter.springboottechiteasy.Dtos.ciModule;
+
+import com.crafter.springboottechiteasy.models.Television;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class CiModuleOutputDto {
+    private Long id;
+    private String name;
+    private String type;
+    private Double price;
+    private Integer originalStock;
+    private Integer sold;
+    private Television television;
+}

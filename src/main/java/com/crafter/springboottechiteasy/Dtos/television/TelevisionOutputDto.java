@@ -1,24 +1,19 @@
-package com.crafter.springboottechiteasy.Dtos;
+package com.crafter.springboottechiteasy.Dtos.television;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotNull;
+import com.crafter.springboottechiteasy.models.CiModule;
+import com.crafter.springboottechiteasy.models.Remote;
+import com.crafter.springboottechiteasy.models.WallBracket;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
+
+import java.util.List;
 
 @Getter
 @Setter
-public class TelevisionInputDto {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TelevisionOutputDto {
     private Long id;
-    @NotNull
     private String type;
-    @NotNull
     private String brand;
-    @NotNull
-    @UniqueElements
     private String name;
     private Double price;
     private Double availableSize;
@@ -32,4 +27,8 @@ public class TelevisionInputDto {
     private Boolean bluetooth;
     private Boolean ambilight;
     private Integer originalStock;
+    private Integer sold;
+    private Remote remote;
+    private List<CiModule> modules;
+    private List<WallBracket> wallBrackets;
 }

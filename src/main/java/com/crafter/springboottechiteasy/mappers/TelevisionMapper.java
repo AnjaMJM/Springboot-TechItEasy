@@ -1,8 +1,8 @@
 package com.crafter.springboottechiteasy.mappers;
 
-import com.crafter.springboottechiteasy.Dtos.TelevisionInputDto;
-import com.crafter.springboottechiteasy.Dtos.TelevisionOutputDto;
-import com.crafter.springboottechiteasy.Dtos.TelevisionSalesDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionInputDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.models.Television;
 
 public class TelevisionMapper {
@@ -28,32 +28,8 @@ public class TelevisionMapper {
         return dto;
     }
 
-    // is output naar television nog nodig, nu er een speciale input DTO is voor PUT en POST?
-    public static Television OutputToTelevision(TelevisionOutputDto dto) {
-        Television television = new Television();
-        television.setId(dto.getId());
-        television.setType(dto.getType());
-        television.setBrand(dto.getBrand());
-        television.setName(dto.getName());
-        television.setPrice(dto.getPrice());
-        television.setAvailableSize(dto.getAvailableSize());
-        television.setRefreshRate(dto.getRefreshRate());
-        television.setScreenType(dto.getScreenType());
-        television.setScreenQuality(dto.getScreenQuality());
-        television.setSmartTv(dto.getSmartTv());
-        television.setWifi(dto.getWifi());
-        television.setVoiceControl(dto.getVoiceControl());
-        television.setHdr(dto.getHdr());
-        television.setBluetooth(dto.getBluetooth());
-        television.setAmbilight(dto.getAmbilight());
-        television.setOriginalStock(dto.getOriginalStock());
-        television.setSold(dto.getSold());
-        return television;
-    }
-
     public static Television InputToTelevision(TelevisionInputDto dto) {
         Television television = new Television();
-        television.setId(dto.getId());
         television.setType(dto.getType());
         television.setBrand(dto.getBrand());
         television.setName(dto.getName());

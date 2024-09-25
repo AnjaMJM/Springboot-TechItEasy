@@ -1,4 +1,4 @@
-package com.crafter.springboottechiteasy.Dtos;
+package com.crafter.springboottechiteasy.Dtos.television;
 
 import lombok.Getter;
 import lombok.Setter;

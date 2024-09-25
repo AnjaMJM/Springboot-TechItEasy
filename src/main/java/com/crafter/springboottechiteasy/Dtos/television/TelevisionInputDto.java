@@ -1,14 +1,23 @@
-package com.crafter.springboottechiteasy.Dtos;
+package com.crafter.springboottechiteasy.Dtos.television;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Getter
 @Setter
-public class TelevisionOutputDto {
-    private Long id;
+public class TelevisionInputDto {
+
+    @NotNull
     private String type;
+    @NotNull
     private String brand;
+    @NotNull
+    @UniqueElements
     private String name;
     private Double price;
     private Double availableSize;
@@ -22,5 +31,4 @@ public class TelevisionOutputDto {
     private Boolean bluetooth;
     private Boolean ambilight;
     private Integer originalStock;
-    private Integer sold;
 }

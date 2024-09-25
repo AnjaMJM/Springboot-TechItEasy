@@ -4,60 +4,44 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
-@Table(name = "Televisions")
+@Table(name = "televisions")
 public class Television {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String type;
-    String brand;
-    String name;
-    Double price;
-    Double availableSize;
-    Integer refreshRate;
-    String screenType;
-    String screenQuality;
-    Boolean smartTv;
-    Boolean wifi;
-    Boolean voiceControl;
-    Boolean hdr;
-    Boolean bluetooth;
-    Boolean ambilight;
-    Integer originalStock;
-    Integer sold;
-
-    public Television() {
-    }
-
-    public Television(String type, String brand, String name) {
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-    }
-
-    public Television(Long id, String type, String brand, String name, Double price, Double availableSize, Integer refreshRate, String screenType, String screenQuality, Boolean smartTv, Boolean wifi, Boolean voiceControl, Boolean hdr, Boolean bluetooth, Boolean ambilight, Integer originalStock, Integer sold) {
-        this.id = id;
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenType = screenType;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambilight = ambilight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-    }
-
+    private Long id;
+    private String type;
+    private String brand;
+    private String name;
+    private Double price;
+    private Double availableSize;
+    private Integer refreshRate;
+    private String screenType;
+    private String screenQuality;
+    private Boolean smartTv;
+    private Boolean wifi;
+    private Boolean voiceControl;
+    private Boolean hdr;
+    private Boolean bluetooth;
+    private Boolean ambilight;
+    private Integer originalStock;
+    private Integer sold;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "remote_id", referencedColumnName = "id")
+    private Remote remote;
+    @OneToMany(mappedBy = "television", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<CiModule> modules = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "television_wallbrackets",
+            joinColumns = @JoinColumn(name = "television_id"),
+            inverseJoinColumns = @JoinColumn(name = "wall_bracket_id")
+    )
+    private List<WallBracket> wallBrackets = new ArrayList<>();
 }
