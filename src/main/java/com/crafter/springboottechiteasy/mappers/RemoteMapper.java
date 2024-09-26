@@ -18,7 +18,7 @@ public class RemoteMapper {
         return remote;
     }
 
-    public RemoteOutputDto RemoteToOutput(Remote remote){
+    public static RemoteOutputDto RemoteToOutput(Remote remote){
         RemoteOutputDto dto = new RemoteOutputDto();
         dto.setId(remote.getId());
         dto.setName(remote.getName());

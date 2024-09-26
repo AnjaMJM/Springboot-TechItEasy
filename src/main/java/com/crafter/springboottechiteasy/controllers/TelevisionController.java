@@ -1,5 +1,6 @@
 package com.crafter.springboottechiteasy.controllers;
 
+import com.crafter.springboottechiteasy.Dtos.IdInputDto;
 import com.crafter.springboottechiteasy.Dtos.television.TelevisionInputDto;
 import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
 import com.crafter.springboottechiteasy.Dtos.television.TelevisionSalesDto;
@@ -53,10 +54,15 @@ public class TelevisionController {
         return ResponseEntity.ok(updatedTv);
     }
 
+    @PutMapping("/televisions/{id}/remote/{remoteId}")
+    public void assignRemoteControllerToTelevision(@PathVariable("id") Long id,@PathVariable Long remoteId) {
+        televisionService.assignRemoteToTelevision(id, remoteId);
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTV(@PathVariable Long id) {
         televisionService.deleteTelevision(id);
         return ResponseEntity.noContent().build();
     }
-
 }

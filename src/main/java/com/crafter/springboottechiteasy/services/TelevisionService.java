@@ -6,7 +6,9 @@ import com.crafter.springboottechiteasy.Dtos.television.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.exceptions.IndexOutOfBoundsException;
 import com.crafter.springboottechiteasy.exceptions.RecordNotFoundException;
 import com.crafter.springboottechiteasy.exceptions.RequirementsNotMetException;
+import com.crafter.springboottechiteasy.models.Remote;
 import com.crafter.springboottechiteasy.models.Television;
+import com.crafter.springboottechiteasy.repositories.RemoteRepository;
 import com.crafter.springboottechiteasy.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,14 @@ import static com.crafter.springboottechiteasy.mappers.TelevisionMapper.*;
 public class TelevisionService {
 
     private final TelevisionRepository televisionRepository;
+    private final RemoteRepository remoteRepository;
 
-    public TelevisionService(TelevisionRepository televisionRepository) {
+    public TelevisionService(TelevisionRepository televisionRepository, RemoteRepository remoteRepository) {
         this.televisionRepository = televisionRepository;
+        this.remoteRepository = remoteRepository;
     }
+
+
 
     public List<TelevisionOutputDto> getAllTelevisions() {
         List<Television> tvs = televisionRepository.findAll();
@@ -71,6 +77,21 @@ public class TelevisionService {
         Optional<Television> television = televisionRepository.findById(id);
         if (television.isPresent()) {
             televisionRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException();
+        }
+    }
+
+    public void assignRemoteToTelevision(Long tvId, Long remoteId){
+        Optional<Television> optionalTelevision = televisionRepository.findById(tvId);
+        Optional<Remote> optionalRemote = remoteRepository.findById(remoteId);
+
+        if(optionalTelevision.isPresent() && optionalRemote.isPresent()) {
+            Television television = optionalTelevision.get();
+            Remote remote = optionalRemote.get();
+
+            television.setRemote(remote);
+            televisionRepository.save(television);
         } else {
             throw new RecordNotFoundException();
         }
