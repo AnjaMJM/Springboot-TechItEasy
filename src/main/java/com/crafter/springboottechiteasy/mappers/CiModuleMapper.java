@@ -11,11 +11,11 @@ public class CiModuleMapper {
         module.setName(dto.getName());
         module.setType(dto.getType());
         module.setPrice(dto.getPrice());
-        module.setTelevision(dto.getTelevision());
+        module.setTelevisions(dto.getTelevisions());
         return module;
     }
 
-    public static CiModuleOutputDto ModuleToDto (CiModule module) {
+    public static CiModuleOutputDto ModuleToOutput (CiModule module) {
         CiModuleOutputDto dto = new CiModuleOutputDto();
         dto.setId(module.getId());
         dto.setName(module.getName());
@@ -23,7 +23,7 @@ public class CiModuleMapper {
         dto.setPrice(module.getPrice());
         dto.setOriginalStock(module.getOriginalStock());
         dto.setSold(module.getSold());
-        dto.setTelevision(module.getTelevision());
+        dto.setTelevisions(module.getTelevisions());
         return dto;
     }
 }

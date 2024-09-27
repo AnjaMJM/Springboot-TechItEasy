@@ -6,8 +6,10 @@ import com.crafter.springboottechiteasy.Dtos.television.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.exceptions.IndexOutOfBoundsException;
 import com.crafter.springboottechiteasy.exceptions.RecordNotFoundException;
 import com.crafter.springboottechiteasy.exceptions.RequirementsNotMetException;
+import com.crafter.springboottechiteasy.models.CiModule;
 import com.crafter.springboottechiteasy.models.Remote;
 import com.crafter.springboottechiteasy.models.Television;
+import com.crafter.springboottechiteasy.repositories.CiModuleRepository;
 import com.crafter.springboottechiteasy.repositories.RemoteRepository;
 import com.crafter.springboottechiteasy.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,12 @@ public class TelevisionService {
 
     private final TelevisionRepository televisionRepository;
     private final RemoteRepository remoteRepository;
+    private final CiModuleRepository ciModuleRepository;
 
-    public TelevisionService(TelevisionRepository televisionRepository, RemoteRepository remoteRepository) {
+    public TelevisionService(TelevisionRepository televisionRepository, RemoteRepository remoteRepository, CiModuleRepository ciModuleRepository) {
         this.televisionRepository = televisionRepository;
         this.remoteRepository = remoteRepository;
+        this.ciModuleRepository = ciModuleRepository;
     }
 
 
@@ -94,6 +98,18 @@ public class TelevisionService {
             televisionRepository.save(television);
         } else {
             throw new RecordNotFoundException();
+        }
+    }
+
+    public void assignCiModuleToTelevision(Long tvId, Long moduleId){
+        Optional<Television> optionalTelevision = televisionRepository.findById(tvId);
+        Optional<CiModule> optionalModule = ciModuleRepository.findById(moduleId);
+
+        if(optionalTelevision.isPresent() && optionalModule.isPresent()){
+            Television television = optionalTelevision.get();
+            CiModule module = optionalModule.get();
+
+            television.setModule(module);
         }
     }
 }

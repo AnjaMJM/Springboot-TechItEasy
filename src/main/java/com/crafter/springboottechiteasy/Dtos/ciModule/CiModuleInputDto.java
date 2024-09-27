@@ -6,11 +6,13 @@ import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class CiModuleInputDto {
     private String name;
     private String type;
     private Double price;
-    private Television television;
+    private List<Television> televisions;
 }

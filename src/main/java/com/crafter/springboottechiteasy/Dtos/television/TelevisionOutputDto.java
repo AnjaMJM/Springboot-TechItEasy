@@ -29,6 +29,6 @@ public class TelevisionOutputDto {
     private Integer originalStock;
     private Integer sold;
     private Remote remote;
-    private List<CiModule> modules;
+    private CiModule module;
     private List<WallBracket> wallBrackets;
 }

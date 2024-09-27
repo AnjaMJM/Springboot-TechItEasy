@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "wall_brackets")
+@Table(name = "Wall_brackets")
 @Getter
 @Setter
 public class WallBracket {

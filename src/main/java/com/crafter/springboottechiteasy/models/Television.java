@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "televisions")
+@Table(name = "television")
 public class Television {
 
     @Id
@@ -35,8 +35,9 @@ public class Television {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "remote_id", referencedColumnName = "id")
     private Remote remote;
-    @OneToMany(mappedBy = "television", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<CiModule> modules = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ci_module_id", referencedColumnName = "id")
+    private CiModule module;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "television_wallbrackets",

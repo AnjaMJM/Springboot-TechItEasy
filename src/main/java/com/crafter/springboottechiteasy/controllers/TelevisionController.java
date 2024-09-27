@@ -54,10 +54,16 @@ public class TelevisionController {
         return ResponseEntity.ok(updatedTv);
     }
 
-    @PutMapping("/televisions/{id}/remote/{remoteId}")
-    public void assignRemoteControllerToTelevision(@PathVariable("id") Long id,@PathVariable Long remoteId) {
+    @PutMapping("/{id}/remote")
+    public void assignRemoteControllerToTelevision(@PathVariable("id") Long id, @RequestBody Long remoteId) {
         televisionService.assignRemoteToTelevision(id, remoteId);
     }
+
+    @PutMapping("/{id}/cimodule")
+    public void assignCiModuleToTelevision(@PathVariable("id") Long id, @RequestBody Long moduleId) {
+        televisionService.assignCiModuleToTelevision(id, moduleId);
+    }
+
 
 
     @DeleteMapping("/{id}")

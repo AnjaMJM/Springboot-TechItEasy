@@ -4,6 +4,8 @@ import com.crafter.springboottechiteasy.models.Television;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class CiModuleOutputDto {
@@ -13,5 +15,5 @@ public class CiModuleOutputDto {
     private Double price;
     private Integer originalStock;
     private Integer sold;
-    private Television television;
+    private List<Television> televisions;
 }

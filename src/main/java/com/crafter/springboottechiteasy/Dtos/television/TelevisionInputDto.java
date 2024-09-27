@@ -1,5 +1,7 @@
 package com.crafter.springboottechiteasy.Dtos.television;
 
+import com.crafter.springboottechiteasy.Dtos.ciModule.CiModuleInputDto;
+import com.crafter.springboottechiteasy.controllers.CiModuleController;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.UniqueConstraint;
@@ -31,4 +33,5 @@ public class TelevisionInputDto {
     private Boolean bluetooth;
     private Boolean ambilight;
     private Integer originalStock;
+    public CiModuleInputDto ciModuleInputDto;
 }
