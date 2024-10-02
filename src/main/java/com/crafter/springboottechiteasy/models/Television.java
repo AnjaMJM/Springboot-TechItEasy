@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "television")
+@Table(name = "televisions")
 public class Television {
 
     @Id
@@ -32,13 +32,13 @@ public class Television {
     private Boolean ambilight;
     private Integer originalStock;
     private Integer sold;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "remote_id", referencedColumnName = "id")
     private Remote remote;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ci_module_id", referencedColumnName = "id")
     private CiModule module;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(
             name = "television_wallbrackets",
             joinColumns = @JoinColumn(name = "television_id"),

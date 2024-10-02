@@ -1,5 +1,8 @@
 package com.crafter.springboottechiteasy.Dtos.television;
 
+import com.crafter.springboottechiteasy.Dtos.ciModule.CiModuleOutputDto;
+import com.crafter.springboottechiteasy.Dtos.remote.RemoteOutputDto;
+import com.crafter.springboottechiteasy.Dtos.wallBracket.WallbracketOutputDto;
 import com.crafter.springboottechiteasy.models.CiModule;
 import com.crafter.springboottechiteasy.models.Remote;
 import com.crafter.springboottechiteasy.models.WallBracket;
@@ -28,7 +31,7 @@ public class TelevisionOutputDto {
     private Boolean ambilight;
     private Integer originalStock;
     private Integer sold;
-    private Remote remote;
-    private CiModule module;
-    private List<WallBracket> wallBrackets;
+    private RemoteOutputDto remote;
+    private CiModuleOutputDto module;
+    private List<WallbracketOutputDto> wallBrackets;
 }

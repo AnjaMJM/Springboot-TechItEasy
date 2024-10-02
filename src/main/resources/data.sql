@@ -1,4 +1,4 @@
-INSERT INTO Television (id, type, brand, name, price, available_size, refresh_rate, screen_type, screen_quality, smart_tv, wifi, voice_control, hdr, bluetooth, ambilight, original_stock, sold)
+INSERT INTO Televisions (id, type, brand, name, price, available_size, refresh_rate, screen_type, screen_quality, smart_tv, wifi, voice_control, hdr, bluetooth, ambilight, original_stock, sold)
 VALUES
     (1, 'LED', 'Samsung', 'Samsung Series 7', 799.99, 55.0, 120, 'Flat', '4K', TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, 100, 30),
     (2, 'OLED', 'LG', 'LG CX', 1499.99, 65.0, 144, 'Curved', '8K', TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 80, 20),

@@ -1,6 +1,6 @@
 package com.crafter.springboottechiteasy.Dtos.remote;
 
-import com.crafter.springboottechiteasy.models.Television;
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +15,5 @@ public class RemoteOutputDto {
     private Double price;
     private Integer originalStock;
     private Integer sold;
-    private Television television;
+    private Long televisionId;
 }

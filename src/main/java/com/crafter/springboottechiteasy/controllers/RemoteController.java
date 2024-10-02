@@ -25,24 +25,24 @@ public class RemoteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RemoteOutputDto> getOneTV(@PathVariable Long id) {
+    public ResponseEntity<RemoteOutputDto> getOneRemote(@PathVariable Long id) {
         return ResponseEntity.ok(remoteService.getOneRemote(id));
     }
 
     @PostMapping()
-    public ResponseEntity<RemoteOutputDto> createNewRemote(@RequestBody RemoteInputDto tv) {
+    public ResponseEntity<RemoteOutputDto> createNewRemote(@RequestBody RemoteInputDto remote) {
         RemoteOutputDto updatedRemote = new RemoteOutputDto();
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(updatedRemote.getId())
                 .toUri();
-        return ResponseEntity.created(location).body(remoteService.createRemote(tv));
+        return ResponseEntity.created(location).body(remoteService.createRemote(remote));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RemoteOutputDto> updateRemote(@PathVariable Long id, @RequestBody RemoteInputDto tv) {
-        RemoteOutputDto updatedRemote = remoteService.updateRemote(id, tv);
+    public ResponseEntity<RemoteOutputDto> updateRemote(@PathVariable Long id, @RequestBody RemoteInputDto remote) {
+        RemoteOutputDto updatedRemote = remoteService.updateRemote(id, remote);
         return ResponseEntity.ok(updatedRemote);
     }
 

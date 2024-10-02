@@ -5,6 +5,9 @@ import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
 import com.crafter.springboottechiteasy.Dtos.television.TelevisionSalesDto;
 import com.crafter.springboottechiteasy.models.Television;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TelevisionMapper {
     public static TelevisionOutputDto TelevisionToOutput(Television television) {
         TelevisionOutputDto dto = new TelevisionOutputDto();
@@ -25,6 +28,15 @@ public class TelevisionMapper {
         dto.setAmbilight(television.getAmbilight());
         dto.setOriginalStock(television.getOriginalStock());
         dto.setSold(television.getSold());
+        if (television.getRemote() != null){
+            dto.setRemote(RemoteMapper.RemoteToOutput(television.getRemote()));
+        }
+        if (television.getWallBrackets() != null) {
+            dto.setWallBrackets(WallBracketMapper.ListWallBracketsToDto(television.getWallBrackets()));
+        }
+        if (television.getModule() != null) {
+            dto.setModule(CiModuleMapper.ModuleToOutput(television.getModule()));
+        }
         return dto;
     }
 
@@ -46,6 +58,15 @@ public class TelevisionMapper {
         television.setAmbilight(dto.getAmbilight());
         television.setOriginalStock(dto.getOriginalStock());
         return television;
+    }
+
+    public static List<TelevisionOutputDto> ListTelevisionToDto(List<Television> televisions) {
+        List<TelevisionOutputDto> dtos = new ArrayList<>();
+        for (Television television : televisions) {
+            TelevisionOutputDto dto = TelevisionToOutput(television);
+            dtos.add(dto);}
+        return dtos;
+
     }
 
     public static TelevisionSalesDto TelevisionToSales(Television television) {

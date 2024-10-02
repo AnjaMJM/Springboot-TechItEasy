@@ -19,6 +19,7 @@ public class Remote {
     private Double price;
     private Integer originalStock;
     private Integer sold;
-    @OneToOne(mappedBy = "remote", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "remote")
+    @JoinColumn(name = "television_id", referencedColumnName = "id")
     private Television television;
 }

@@ -1,5 +1,6 @@
 package com.crafter.springboottechiteasy.Dtos.wallBracket;
 
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
 import com.crafter.springboottechiteasy.models.Television;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +17,5 @@ public class WallbracketOutputDto {
     private Double price;
     private Integer originalStock;
     private Integer sold;
-    private List<Television> televisions = new ArrayList<>();
+    private List<Long> televisionIdList = new ArrayList<>();
 }

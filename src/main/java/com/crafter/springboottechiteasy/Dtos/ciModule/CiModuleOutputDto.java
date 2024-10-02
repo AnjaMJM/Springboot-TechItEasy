@@ -1,5 +1,6 @@
 package com.crafter.springboottechiteasy.Dtos.ciModule;
 
+import com.crafter.springboottechiteasy.Dtos.television.TelevisionOutputDto;
 import com.crafter.springboottechiteasy.models.Television;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,5 +16,5 @@ public class CiModuleOutputDto {
     private Double price;
     private Integer originalStock;
     private Integer sold;
-    private List<Television> televisions;
+    private List<Long> televisionIdList;
 }
